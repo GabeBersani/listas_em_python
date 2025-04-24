@@ -4,7 +4,7 @@ print("lista de nomes criada")
 print("-"*25)
 
 # 2. Adicione mais um objeto ao final da lista:
-objetos.append("cadeira")
+objetos.append("lapis")
 print("objeto adicionado")
 print("-"*25)
 
@@ -29,9 +29,15 @@ for objeto in objetos:
 print("-"*25)
 
 # 7. Verifique se 'cadeira' está na lista. Se sim remova-a, senão adicione:
-objetos.remove("cadeira")
-print("objeto removido")
-print("-"*25)
+if"cadeira" in objetos:
+    objetos.remove("cadeira")
+    print("objeto removido")
+    print("-"*25)
+else:
+    objetos.append("cadeira")
+    print("objeto Adicionado")
+    print("-" * 25)
+
 
 # 8. Ordene a lista em ordem alfabética:
 objetos.sort()
