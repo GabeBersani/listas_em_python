@@ -72,7 +72,6 @@ def main(page: ft.Page):
                     [
                         AppBar(title=Text("Segunda tela"), bgcolor=Colors.SECONDARY_CONTAINER),
                         lv_nome,
-
                     ],
                 )
             )
@@ -87,6 +86,7 @@ def main(page: ft.Page):
     input_nome = ft.TextField(label="Nome")
     input_profissao = ft.TextField(label="Profissao")
     input_salario = ft.TextField(label="Salario")
+    objeto = [input_nome, input_profissao, input_salario]
 
     msg_sucesso = ft.SnackBar(
         content=ft.Text("Salvo com sucesso"),

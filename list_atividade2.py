@@ -39,9 +39,16 @@ def main(page: ft.Page):
         lv_nome.controls.clear()
         for user in lista:
             lv_nome.controls.append(
-                ft.Text(value=f"{user.titulo}, {user.autor}"),
+                ft.Card(
+                    content=ft.Container(
+                        content=ft.Column([
+                            Text(f"Titulo: {user.titulo}"),
+                            Text(f"Autor: {user.autor}"),
+                        ])
+                    )
+                )
             )
-            page.update()
+        page.update()
 
     def gerencia_rotas(e):
         page.views.clear()
