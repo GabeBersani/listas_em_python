@@ -1,6 +1,10 @@
 import flet as ft
 from flet import AppBar, Text, View, ElevatedButton
 from flet.core.colors import Colors
+import sqlalchemy
+from flask import Flask, jsonify, request
+from sqlalchemy import select
+from models import *
 
 class Livro():
     def __init__(self, nome, descricao, categoria, autor):

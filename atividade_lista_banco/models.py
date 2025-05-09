@@ -11,15 +11,14 @@ Base.query = db_sesion.query_property()
 class Livros(Base):
     __tablename__ = 'livros'
     id = Column(Integer, primary_key=True)
-    Titulo = Column(String(40), nullable=False, index=True)
-    Autor = Column(String(11), nullable=False, index=True, unique=True)
-    ano_de_nascimento = Column(Integer, nullable=False, index=True)
-    endereco = Column(String(40), nullable=False, index=True)
-    cpf = Column(String(11), nullable=False, index=True, unique=True)
-    email = Column(String(50), nullable=False, index=True, unique=True)
+    titulo = Column(String(40), nullable=False, index=True)
+    autor = Column(String(40), nullable=False, index=True)
+    descrição = Column(String(40), nullable=False, index=True)
+    categoria = Column(String(40), nullable=False, index=True)
+
 
     def __repr__(self):
-        return '<Funcionario: Nome: {} CPF: {}>'.format(self.nome, self.cpf)
+        return '<Livros: Titulo: {} Autor: {}>'.format(self.titulo, self.autor)
 
     def save(self):
         db_sesion.add(self)
@@ -30,14 +29,18 @@ class Livros(Base):
         db_sesion.commit()
 
     def serialize_user(self):
-        dados_funcionario = {
+        dados_livros = {
             'id': self.id,
-            'nome': self.nome,
-            'telefone': self.telefone,
-            'ano_de_nascimento': self.ano_de_nascimento,
-            'endereco': self.endereco,
-            'cpf': self.cpf,
-            'email': self.email,
+            'Titulo': self.titulo,
+            'Autor': self.autor,
+            'Categoria': self.categoria,
+            'Descrição': self.descrição
         }
 
-        return dados_funcionario
+        return dados_livros
+
+def init_db():
+    Base.metadata.create_all(bind=engine)
+
+if __name__ == '__main__':
+    init_db()
