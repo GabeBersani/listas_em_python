@@ -3,17 +3,17 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import scoped_session, sessionmaker, relationship, declarative_base
 
 engine = create_engine('sqlite:///listalivros.sqlite3')
-db_sesion = scoped_session(sessionmaker(bind=engine))
+db_session = scoped_session(sessionmaker(bind=engine))
 
 Base = declarative_base()
-Base.query = db_sesion.query_property()
+Base.query = db_session.query_property()
 
-class Livros(Base):
+class Livro(Base):
     __tablename__ = 'livros'
     id = Column(Integer, primary_key=True)
     titulo = Column(String(40), nullable=False, index=True)
     autor = Column(String(40), nullable=False, index=True)
-    descrição = Column(String(40), nullable=False, index=True)
+    descricao = Column(String(40), nullable=False, index=True)
     categoria = Column(String(40), nullable=False, index=True)
 
 
@@ -21,12 +21,12 @@ class Livros(Base):
         return '<Livros: Titulo: {} Autor: {}>'.format(self.titulo, self.autor)
 
     def save(self):
-        db_sesion.add(self)
-        db_sesion.commit()
+        db_session.add(self)
+        db_session.commit()
 
     def delete(self):
-        db_sesion.delete(self)
-        db_sesion.commit()
+        db_session.delete(self)
+        db_session.commit()
 
     def serialize_user(self):
         dados_livros = {
@@ -34,7 +34,7 @@ class Livros(Base):
             'Titulo': self.titulo,
             'Autor': self.autor,
             'Categoria': self.categoria,
-            'Descrição': self.descrição
+            'Descrição': self.descricao,
         }
 
         return dados_livros

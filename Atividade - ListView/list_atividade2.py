@@ -63,7 +63,7 @@ def main(page: ft.Page):
             View(
                 "/detalhes",
                 [
-                    AppBar(title=Text("Detalhes do Livro"), bgcolor=Colors.TERTIARY_CONTAINER),
+                    AppBar(title=Text("Detalhes do Livro"), bgcolor=Colors.PINK),
                     Text(f" Descrição: {livro.descricao}", size=18),
                     Text(f" Categoria: {livro.categoria}", size=18),
                     ElevatedButton(text="Voltar", on_click=voltar)
@@ -78,7 +78,7 @@ def main(page: ft.Page):
             View(
                 "/",
                 [
-                    AppBar(title=Text("Cadastro de Livros"), bgcolor=Colors.PRIMARY_CONTAINER),
+                    AppBar(title=Text("Cadastro de Livros"), bgcolor=Colors.PINK),
                     input_nome,
                     input_descricao,
                     input_categoria,
@@ -94,7 +94,7 @@ def main(page: ft.Page):
                 View(
                     "/lista",
                     [
-                        AppBar(title=Text("Lista de Livros"), bgcolor=Colors.SECONDARY_CONTAINER),
+                        AppBar(title=Text("Lista de Livros"), bgcolor=Colors.PINK),
                         lista_livros
                     ]
                 )
