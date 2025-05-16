@@ -21,7 +21,6 @@ def main(page: ft.Page):
             page.overlay.append(msg_erro)
             msg_erro.open = True
             page.update()
-            return
         else:
             livro = Livro(
                 titulo=input_nome.value,
@@ -39,8 +38,10 @@ def main(page: ft.Page):
 
     def exibir_lista(e):
         lv_livro.controls.clear()
+
         book = select(Livro)
         livros = db_session.execute(book).scalars().all()
+
         for l in livros:
             lv_livro.controls.append(
                 ft.ListTile(
@@ -51,7 +52,7 @@ def main(page: ft.Page):
                         icon=ft.Icons.MORE_VERT,
                         items=[
                             ft.PopupMenuItem(
-                                text="Detalhes"
+                                text="Detalhes do livro"
                             ),
                         ],
                         on_select=lambda _, liv=l: ver_detalhes(liv.titulo, liv.autor, liv.descricao, liv.categoria),
@@ -62,8 +63,7 @@ def main(page: ft.Page):
         page.update()
 
     def ver_detalhes(titulo, autor, descricao, categoria):
-        book.value = (f"{titulo}  {autor}  {descricao}  {categoria}")
-        page.update()
+        txt.value = (f"Titulo: {titulo}; \nAutor: {autor}; \nDescrição: {descricao}; \nCategoria: {categoria}.")
         page.go("/listar_detalhes")
 
     def gerencia_rota(e):
@@ -77,8 +77,8 @@ def main(page: ft.Page):
                     input_descricao,
                     input_categoria,
                     input_autor,
-                    ElevatedButton(text="Salvar Livro", on_click=salvar_livro(e)),
-                    ElevatedButton(text="Exibir Lista", on_click=lambda _: page.go("/lista")),
+                    ElevatedButton(text="Salvar Livro", on_click=salvar_livro, color=ft.CupertinoColors.SYSTEM_PINK, width=375),
+                    ElevatedButton(text="Exibir Lista", on_click=lambda _: page.go("/lista"), color=ft.CupertinoColors.SYSTEM_PINK, width=375),
                 ]
             )
         )
@@ -93,17 +93,19 @@ def main(page: ft.Page):
                     ]
                 )
             )
-        page.update()
-        if page.route == "/lista_detalhes":
+
+        if page.route == "/listar_detalhes":
             page.views.append(
                 View(
-                    "/lista_detalhes",
+                    "/listar_detalhes",
                     [
                         AppBar(title=Text("Lista de Livros"), bgcolor=Colors.PINK),
-                        livros
+                        txt,
+                        ElevatedButton(text="Voltar", on_click=lambda _: page.go("/lista"), color=ft.CupertinoColors.SYSTEM_PINK, width=375)
                     ]
                 )
             )
+        page.update()
 
     def voltar(e):
         page.views.pop()
@@ -115,7 +117,7 @@ def main(page: ft.Page):
     input_descricao = ft.TextField(label="Descrição")
     input_categoria = ft.TextField(label="Categoria")
     input_autor = ft.TextField(label="Autor")
-
+    txt = ft.Text(value="")
     lv_livro = ft.ListView(
         height=500,
         spacing=1,
